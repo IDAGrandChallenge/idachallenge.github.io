@@ -1,488 +1,385 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ICME26 Grand Challenge IDA: Cross-Scenario Defect Detection and Fine-Grained Severity Grading</title>
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <!-- Bulma (nerfies style) -->
+  <link rel="stylesheet" href="./static/css/bulma.min.css" />
+  <link rel="stylesheet" href="./static/css/index.css" />
+
+  <!-- MathJax for equations -->
   <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
   </script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
+
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</nav>
-
-
+<!-- Top hero -->
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
-            <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
-            <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
-            </span>
-          </div>
+      <div class="has-text-centered">
+        <h1 class="title is-2">
+          IDA<sup>*</sup> 2026: Cross-Scenario Defect Detection and Fine-Grained Severity Grading for High-Precision Manufacturing
+        </h1>
+        <p class="subtitle is-6">
+          <sup>*</sup>IDA: Industrial Defect Analysis
+        </p>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
-          </div>
+        <p class="is-size-5">
+          <strong>Wei Sun</strong>, <strong>Weixia Zhang</strong>, <strong>Linhan Cao</strong>, <strong>Xiongkuo Min</strong>, <strong>Xiaoping Zhang</strong>,
+          <strong>Patrick Le Callet</strong>, <strong>Guangtao Zhai</strong>
+        </p>
 
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <!-- PDF Link. -->
-              <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-              <!-- Video Link. -->
-              <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <!-- Code Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
-              </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
-            </div>
+        <!-- Optional affiliations line later -->
+        <p class="is-size-6 has-text-grey">
+          <!-- TODO: Add affiliations if needed -->
+        </p>
 
-          </div>
+        <!-- Top buttons (like ICME pages) -->
+        <div class="buttons is-centered mt-4">
+          <!-- TODO: replace href when ready -->
+          <a class="button is-dark is-rounded" href="#dataset">Dataset</a>
+          <a class="button is-dark is-rounded" href="#evaluation">Evaluation</a>
+          <a class="button is-dark is-rounded" href="#submission">Submission</a>
+          <a class="button is-link is-rounded" href="#leaderboard">Leaderboard</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="hero teaser">
+<hr/>
+
+<!-- Main two-column layout: left content + right quick links -->
+<section class="section pt-5">
   <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
-      </h2>
-    </div>
-  </div>
-</section>
+    <div class="columns is-variable is-6">
 
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
-          </p>
-          <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
-  </div>
-</section>
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
-          </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
-  </div>
-</section>
-
-
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}</code></pre>
-  </div>
-</section>
-
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
+      <!-- LEFT: main content -->
       <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
-          </p>
+
+        <!-- Program -->
+        <section class="section pt-0" id="program">
+          <h2 class="title is-3">Program</h2>
+          <div class="box">
+            <div class="content">
+              <p><em>Coming soon.</em></p>
+              <!-- TODO: Program details (time, speakers, session) -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Leaderboard (Track 1 + Track 2) -->
+        <section class="section pt-0" id="leaderboard">
+          <h2 class="title is-3">Leaderboard</h2>
+
+          <div class="notification is-warning is-light">
+            <strong>Placeholder:</strong> Leaderboards for Track 1 and Track 2 will appear here after the test phase starts.
+          </div>
+
+          <div class="columns is-variable is-4">
+            <div class="column is-6">
+              <div class="box">
+                <h3 class="title is-5 mb-3">Track 1</h3>
+                <table class="table is-fullwidth is-striped is-hoverable">
+                  <thead>
+                    <tr><th>Rank</th><th>Team</th><th>Score</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>—</td><td>—</td><td>—</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="column is-6">
+              <div class="box">
+                <h3 class="title is-5 mb-3">Track 2</h3>
+                <table class="table is-fullwidth is-striped is-hoverable">
+                  <thead>
+                    <tr><th>Rank</th><th>Team</th><th>Score</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>—</td><td>—</td><td>—</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Overview / Description -->
+        <section class="section pt-0" id="overview">
+          <h2 class="title is-3">Overview</h2>
+          <div class="box">
+            <div class="content">
+              <p>
+                The quality control of <strong>Printed Circuit Board Assemblies (PCBA)</strong> and high-density electronic components represents a cornerstone of modern manufacturing.
+                As electronic devices become increasingly miniaturized, the automated inspection of solder joints, connector pins, and substrate surfaces faces unprecedented challenges.
+                However, a critical bottleneck restricts the massive deployment of current Industrial AI: the lack of
+                <strong>Cross-Scenario Generalization Ability</strong> and <strong>Fine-Grained Severity Grading Capability</strong>.
+              </p>
+
+              <p>
+                In real-world workflows, production lines and sensing environments frequently change. Conventional models often suffer from catastrophic performance degradation
+                when transferred from one production line to another unseen domain. When transferred to another unseen scenario, existing benchmarks predominantly focus on binary decisions,
+                lacking fine-grained assessment ability of the severity, which is crucial for better optimizing industrial pipelines.
+              </p>
+
+              <p><strong>IDA 2026</strong> establishes two distinct competition tracks:</p>
+
+              <ul>
+                <li>
+                  <strong>Track 1: Cross-Scenario Defect Detection</strong>.
+                  This track focuses on the <strong>adaptability</strong> of vision models. Participants must develop models that can accurately detect, localize,
+                  and classify defects across different, unseen production lines and varying imaging conditions.
+                  <ul>
+                    <li><strong>Goal:</strong> Maximize detection, classification, and localization performance in unseen domains while minimizing false alarms.</li>
+                    <li><strong>Key Challenge:</strong> Domain adaptation and Zero-Shot/Few-Shot generalization.</li>
+                  </ul>
+                </li>
+
+                <li class="mt-3">
+                  <strong>Track 2: Fine-Grained Severity Grading</strong>.
+                  This track focuses on the <strong>analytical depth</strong> of vision models. Moving beyond simple detection, participants must analyze detected defects to identify their
+                  specific mechanism and assign an industry-standard severity level
+                  (<strong><em>Acceptable, Marginal NG (Not Good), NG, or Gross NG</em></strong>).
+                  <ul>
+                    <li><strong>Goal:</strong> Accurately categorize defect types and grade severity based on visual evidence.</li>
+                    <li><strong>Key Challenge:</strong> Fine-Grained Classification and Ordinal Regression.</li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p>
+                The goal is to advance AI systems from mere “defect finders” (Track 1) to intelligent “risk assessors” (Track 2) for electronics assembly.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Evaluation Criteria (formulas) -->
+        <section class="section pt-0" id="evaluation-criteria">
+          <h2 class="title is-3">Evaluation Criteria</h2>
+          <div class="box">
+            <div class="content">
+              <p>
+                We define separate scoring metrics for each track. Crucially, both tracks require strong capabilities in Defect Localization and Classification,
+                but with different weighting priorities.
+              </p>
+
+              <h3 class="title is-4">Track 1: Cross-Scenario Defect Detection</h3>
+              <p>
+                The ranking for Track 1 is determined by the <strong>Detection Score</strong> \(S_{Track1}\).
+                This score emphasizes the model’s ability to find and recognize defects in new domains while controlling false alarms.
+              </p>
+              <p>
+                $$ S_{Track1} = 0.3 \\times S_{loc} + 0.3 \\times S_{cls} + 0.4 \\times S_{screen} $$
+              </p>
+              <ul>
+                <li><strong>Localization</strong> (\(S_{loc}\)): Mean Intersection over Union (mIoU).</li>
+                <li><strong>Classification</strong> (\(S_{cls}\)): Macro-F1 Score for defect type identification.</li>
+                <li><strong>Screening Efficiency</strong> (\(S_{screen}\)): composite of Image-Level Recall and Specificity to penalize false alarms in unseen domains.</li>
+              </ul>
+
+              <h3 class="title is-4 mt-5">Track 2: Fine-Grained Severity Grading</h3>
+              <p>
+                The ranking for Track 2 is determined by the <strong>Risk Assessment Score</strong> \(S_{Track2}\).
+                While severity grading is the primary goal, accurate localization and classification are prerequisites for valid reasoning.
+              </p>
+              <p>
+                $$ S_{Track2} = 0.2 \\times S_{loc} + 0.2 \\times S_{cls} + 0.6 \\times S_{grade} $$
+              </p>
+              <ul>
+                <li><strong>Severity Grading</strong> (\(S_{grade}\)): <strong>Quadratic Weighted Kappa (QWK)</strong>.</li>
+                <li><strong>Localization</strong> (\(S_{loc}\)) &amp; <strong>Classification</strong> (\(S_{cls}\)): ensures the severity grade is assigned to the correct defect instance and type.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Dataset (placeholder) -->
+        <section class="section pt-0" id="dataset">
+          <h2 class="title is-3">Dataset</h2>
+          <div class="notification is-warning is-light">
+            <strong>Placeholder:</strong> Dataset details will be released soon (download links, license, format specs, annotation schema, and train/dev/test splits).
+          </div>
+          <div class="box">
+            <div class="content">
+              <h3 class="title is-5">Dataset Structure (Preview)</h3>
+              <ul>
+                <li><strong>Development Set (Shared):</strong> images from multiple source domains with full annotations (Bounding Boxes + Defect Types + Severity Labels).</li>
+                <li><strong>Track 1 Test Set (Unseen Domains):</strong> images from <strong>new</strong> production lines or components not seen (Zero-Shot/Few-Shot) in the training set.</li>
+                <li><strong>Track 2 Test Set (Complex Cases):</strong> images containing challenging defects with subtle visual differences between severity levels.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Evaluation (placeholder) -->
+        <section class="section pt-0" id="evaluation">
+          <h2 class="title is-3">Evaluation</h2>
+          <div class="notification is-warning is-light">
+            <strong>Placeholder:</strong> Detailed evaluation protocol (metrics definitions, thresholds, matching rules, and scoring script) will be provided soon.
+          </div>
+          <div class="box">
+            <div class="content">
+              <p>
+                For now, please refer to <a href="#evaluation-criteria">Evaluation Criteria</a> for the scoring formulas and metric descriptions.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Submission (placeholder, but keep your format + timeline) -->
+        <section class="section pt-0" id="submission">
+          <h2 class="title is-3">Submission</h2>
+          <div class="notification is-warning is-light">
+            <strong>Placeholder:</strong> Submission portal/link and code packaging requirements will be announced soon.
+          </div>
+
+          <div class="box">
+            <div class="content">
+              <h3 class="title is-4">Submission Format</h3>
+              <p>Participants can choose to compete in one or both tracks.</p>
+              <ul>
+                <li><strong>Track 1 Submission:</strong> JSON with <code>image_id</code>, <code>bbox</code>, <code>defect_type</code>, <code>confidence</code>.</li>
+                <li><strong>Track 2 Submission:</strong> JSON with <code>image_id</code>, <code>bbox</code>, <code>defect_type</code>, <code>severity_level</code>.</li>
+              </ul>
+
+              <h3 class="title is-4 mt-5">Timeline</h3>
+              <table class="table is-striped is-fullwidth">
+                <thead>
+                  <tr><th>Date</th><th>Milestone</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>2026.03.01</strong></td><td>Challenge registration opens and release of the training dataset.</td></tr>
+                  <tr><td><strong>2026.04.01</strong></td><td>Test Set Release (Track 1 &amp; Track 2).</td></tr>
+                  <tr><td><strong>2026.04.06</strong></td><td>Challenge closes (Final code submission).</td></tr>
+                  <tr><td><strong>2026.04.20</strong></td><td>Grand challenge paper submission deadline.</td></tr>
+                  <tr><td><strong>2026.04.25</strong></td><td>Paper acceptance notification.</td></tr>
+                  <tr><td><strong>2026.07.05</strong></td><td>Winner Announcement &amp; Award.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Awards -->
+        <section class="section pt-0" id="awards">
+          <h2 class="title is-3">Awards</h2>
+          <div class="box">
+            <div class="content">
+              <p>
+                A total prize pool of <strong>$9,600 USD</strong> will be awarded across two tracks (Track 1 and Track 2), with identical prize distributions:
+              </p>
+              <ul>
+                <li><strong>Champion:</strong> $3,000 &nbsp;&nbsp; <strong>Runner-up:</strong> $1,000 &nbsp;&nbsp; <strong>Third Place:</strong> $800</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Organizers (name + email only, per your request) -->
+        <section class="section pt-0" id="organizers">
+          <h2 class="title is-3">Organizers</h2>
+          <div class="box">
+            <div class="content">
+              <table class="table is-fullwidth is-striped">
+                <thead>
+                  <tr><th>Name</th><th>Email</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Wei Sun (Lead Organizer)</td><td><a href="mailto:wsun@cee.ecnu.edu.cn">wsun@cee.ecnu.edu.cn</a></td></tr>
+                  <tr><td>Weixia Zhang</td><td><a href="mailto:zwx8981@sjtu.edu.cn">zwx8981@sjtu.edu.cn</a></td></tr>
+                  <tr><td>Linhan Cao</td><td><a href="mailto:caolinhan@sjtu.edu.cn">caolinhan@sjtu.edu.cn</a></td></tr>
+                  <tr><td>Xiongkuo Min</td><td><a href="mailto:minxiongkuo@sjtu.edu.cn">minxiongkuo@sjtu.edu.cn</a></td></tr>
+                  <tr><td>Xiaoping Zhang</td><td><a href="mailto:xpzhang@ieee.org">xpzhang@ieee.org</a></td></tr>
+                  <tr><td>Patrick Le Callet</td><td><a href="mailto:patrick.lecallet@univ-nantes.fr">patrick.lecallet@univ-nantes.fr</a></td></tr>
+                  <tr><td>Guangtao Zhai</td><td><a href="mailto:zhaiguangtao@sjtu.edu.cn">zhaiguangtao@sjtu.edu.cn</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- RIGHT: Quick links + key info (ICME-like sidebar) -->
+      <div class="column is-4">
+
+        <!-- Quick Links -->
+        <div class="box">
+          <h3 class="title is-5">Quick Links</h3>
+          <div class="content">
+            <ul>
+              <li><a href="#program">Program</a></li>
+              <li><a href="#leaderboard">Leaderboard</a></li>
+              <li><a href="#overview">Overview</a></li>
+              <li><a href="#evaluation-criteria">Evaluation Criteria</a></li>
+              <li><a href="#dataset">Dataset</a></li>
+              <li><a href="#evaluation">Evaluation</a></li>
+              <li><a href="#submission">Submission</a></li>
+              <li><a href="#awards">Awards</a></li>
+              <li><a href="#organizers">Organizers</a></li>
+            </ul>
+          </div>
         </div>
+
+        <!-- Dates card -->
+        <div class="box">
+          <h3 class="title is-5">Important Dates</h3>
+          <div class="content">
+            <ul>
+              <li><strong>2026.03.01</strong> Registration opens + training release</li>
+              <li><strong>2026.04.01</strong> Test release (Track 1 &amp; 2)</li>
+              <li><strong>2026.04.06</strong> Challenge closes</li>
+              <li><strong>2026.04.20</strong> GC paper deadline</li>
+              <li><strong>2026.04.25</strong> Acceptance notification</li>
+              <li><strong>2026.07.05</strong> Winner announcement</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tracks card -->
+        <div class="box">
+          <h3 class="title is-5">Tracks</h3>
+          <div class="content">
+            <p class="mb-2"><strong>Track 1:</strong> Cross-Scenario Defect Detection</p>
+            <p><strong>Track 2:</strong> Fine-Grained Severity Grading</p>
+          </div>
+        </div>
+
+        <!-- Optional: Contact card -->
+        <div class="box">
+          <h3 class="title is-5">Contact</h3>
+          <div class="content">
+            <p>
+              <!-- TODO: pick one main contact email if you like -->
+              Email: <a href="mailto:wsun@cee.ecnu.edu.cn">wsun@cee.ecnu.edu.cn</a>
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="content has-text-centered">
+    <p class="is-size-7 has-text-grey">
+      © IDA 2026. Built on the nerfies.github.io template.
+    </p>
   </div>
 </footer>
 
