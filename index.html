@@ -3,13 +3,111 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ICME26 Grand Challenge IDA: Cross-Scenario Defect Detection and Fine-Grained Severity Grading</title>
+  <title>ICME26 Grand Challenge: IDA</title>
 
-  <!-- Bulma (nerfies style) -->
-  <link rel="stylesheet" href="./static/css/bulma.min.css" />
-  <link rel="stylesheet" href="./static/css/index.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <!-- MathJax for equations -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9fc;
+      color: #2c3e50;
+    }
+
+    /* [修改] 调整容器宽度逻辑 
+       确保在大屏幕上足够宽 (1400px)，不再挤在中间
+    */
+    @media screen and (min-width: 1600px) {
+      .container {
+        max-width: 1600px !important;
+        width: 1600px !important;
+      }
+    }
+
+    /* Hero Section Styling */
+    .hero {
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+      color: #fff;
+    }
+    .hero .title {
+      color: #fff !important;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    .hero .subtitle {
+      color: #e0e0e0 !important;
+    }
+    .hero a.button {
+      border-width: 0;
+      transition: transform 0.2s;
+    }
+    .hero a.button:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Content Styling */
+    .box {
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid #eee;
+    }
+    .section-header {
+      border-left: 5px solid #203a43;
+      padding-left: 15px;
+      margin-bottom: 25px !important;
+      color: #203a43;
+    }
+
+    /* Track Cards */
+    .track-card {
+      height: 100%;
+      border-top: 4px solid #3273dc;
+      transition: all 0.3s ease;
+    }
+    .track-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .track-icon {
+      color: #3273dc;
+      margin-bottom: 1rem;
+    }
+
+    /* Awards Section */
+    .awards-box {
+      background-color: #fffbf0;
+      border: 1px solid #ffeeba;
+      border-left: 5px solid #ffdd57;
+    }
+    .price-tag {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #b8860b;
+    }
+
+    /* Sticky Sidebar */
+    .sidebar-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+      top: 2rem;
+    }
+
+    /* MathJax Fix */
+    mjx-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+    
+    /* Table Styling */
+    .table th {
+      background-color: #f5f7fa;
+      color: #4a4a4a;
+    }
+
+  </style>
+
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
@@ -21,359 +119,256 @@
 
 <body>
 
-<!-- Top hero -->
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="has-text-centered">
-        <h1 class="title is-2">
-          ICME26 Grand Challenge IDA<sup>*</sup>: Cross-Scenario Defect Detection and Fine-Grained Severity Grading for High-Precision Manufacturing
-        </h1>
-        <p class="subtitle is-6">
-          <sup>*</sup>IDA: Industrial Defect Analysis
-        </p>
-
-        <p class="is-size-5">
-          <strong>Wei Sun</strong>, <strong>Weixia Zhang</strong>, <strong>Linhan Cao</strong>, <strong>Xiongkuo Min</strong>, <strong>Xiaoping Zhang</strong>,
-          <strong>Patrick Le Callet</strong>, <strong>Guangtao Zhai</strong>
-        </p>
-
-        <!-- Optional affiliations line later -->
-        <p class="is-size-6 has-text-grey">
-          <!-- TODO: Add affiliations if needed -->
-        </p>
-
-        <!-- Top buttons (like ICME pages) -->
-        <div class="buttons is-centered mt-4">
-          <!-- TODO: replace href when ready -->
-          <a class="button is-dark is-rounded" href="#dataset">Dataset</a>
-          <a class="button is-dark is-rounded" href="#evaluation">Evaluation</a>
-          <a class="button is-dark is-rounded" href="#submission">Submission</a>
-          <a class="button is-link is-rounded" href="#leaderboard">Leaderboard</a>
-        </div>
-      </div>
+  <section class="hero" style="background-color: #f9f9fc;">
+    <div class="hero-body" style="padding-top: 2rem;">
+      <div class="container has-text-centered">
+  
+        <div class="columns is-centered">
+          
+          <div class="column is-10 is-full-mobile">
+            
+            <figure class="image mb-6">
+              <img src="icme26-bg-02-combined-01-1-scaled.webp" 
+                   alt="IDA Challenge Overview" 
+                   style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+            </figure>
+            
+            <h1 class="title is-2 mb-4">
+              ICME26 Grand Challenge IDA<sup>*</sup>: Cross-Scenario Defect Detection and Fine-Grained Severity Grading for High-Precision Manufacturing
+            </h1>
+            
+            <p class="subtitle is-4 mb-6">
+              <span class="is-size-6" style="opacity: 0.8">
+                <sup>*</sup>IDA: Industrial Defect Analysis
+              </span>
+            </p>
+  
+  
+            <div class="buttons is-centered">
+              <a class="button is-white is-rounded has-text-dark" href="#dataset">
+                <span class="icon"><i class="fas fa-database"></i></span>
+                <span>Dataset</span>
+              </a>
+              <a class="button is-white is-rounded has-text-dark" href="#evaluation-criteria">
+                <span class="icon"><i class="fas fa-chart-bar"></i></span>
+                <span>Evaluation</span>
+              </a>
+              <a class="button is-white is-rounded has-text-dark" href="#submission-format">
+                <span class="icon"><i class="fas fa-upload"></i></span>
+                <span>Submission</span>
+              </a>
+              <a class="button is-warning is-rounded has-text-dark" href="#leaderboard">
+                <span class="icon"><i class="fas fa-trophy"></i></span>
+                <span>Leaderboard</span>
+              </a>
+            </div>
+  
+          </div> </div> </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<hr/>
 
-<!-- Main two-column layout: left content + right quick links -->
-<section class="section pt-5">
-  <div class="container is-max-desktop">
-    <div class="columns is-variable is-6">
+<section class="section">
+  <div class="container">
+    <div class="columns is-variable is-8 is-centered">
 
-      <!-- LEFT: main content -->
-      <div class="column is-8">
+      <div class="column is-10">
 
-        <!-- Program -->
-        <section class="section pt-0" id="program">
-          <h2 class="title is-3">Program</h2>
-          <div class="box">
-            <div class="content">
-              <p><em>Coming soon.</em></p>
-              <!-- TODO: Program details (time, speakers, session) -->
-            </div>
+        <div class="box" id="overview">
+          <h2 class="title is-3 section-header">Overview</h2>
+          <div class="content">
+            <p>
+              The quality control of <strong>Printed Circuit Board Assemblies (PCBA)</strong> and high-density electronic components represents a cornerstone of modern manufacturing.
+              As electronic devices become increasingly miniaturized, the automated inspection of solder joints, connector pins, and substrate surfaces faces unprecedented challenges.
+              However, a critical bottleneck restricts the massive deployment of current Industrial AI: the lack of
+              <strong>Cross-Scenario Generalization Ability</strong> and <strong>Fine-Grained Severity Grading Capability</strong>.
+            </p>
+            <p>
+              In real-world workflows, production lines and sensing environments frequently change. Conventional models often suffer from catastrophic performance degradation
+              when transferred from one production line to another unseen domain. When transferred to another unseen scenario, existing benchmarks predominantly focus on binary decisions,
+              lacking fine-grained assessment ability of the severity, which is crucial for better optimizing industrial pipelines.
+            </p>
+
+            <p><strong>IDA 2026</strong> establishes two distinct competition tracks:</p>
+
           </div>
-        </section>
-
-        <!-- Leaderboard (Track 1 + Track 2) -->
-        <section class="section pt-0" id="leaderboard">
-          <h2 class="title is-3">Leaderboard</h2>
-
-          <div class="notification is-warning is-light">
-            <strong>Placeholder:</strong> Leaderboards for Track 1 and Track 2 will appear here after the test phase starts.
-          </div>
-
-          <div class="columns is-variable is-4">
+          
+          <div class="columns is-multiline mt-4">
             <div class="column is-6">
-              <div class="box">
-                <h3 class="title is-5 mb-3">Track 1</h3>
-                <table class="table is-fullwidth is-striped is-hoverable">
-                  <thead>
-                    <tr><th>Rank</th><th>Team</th><th>Score</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>—</td><td>—</td><td>—</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="column is-6">
-              <div class="box">
-                <h3 class="title is-5 mb-3">Track 2</h3>
-                <table class="table is-fullwidth is-striped is-hoverable">
-                  <thead>
-                    <tr><th>Rank</th><th>Team</th><th>Score</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>—</td><td>—</td><td>—</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Overview / Description -->
-        <section class="section pt-0" id="overview">
-          <h2 class="title is-3">Overview</h2>
-          <div class="box">
-            <div class="content">
-              <p>
-                The quality control of <strong>Printed Circuit Board Assemblies (PCBA)</strong> and high-density electronic components represents a cornerstone of modern manufacturing.
-                As electronic devices become increasingly miniaturized, the automated inspection of solder joints, connector pins, and substrate surfaces faces unprecedented challenges.
-                However, a critical bottleneck restricts the massive deployment of current Industrial AI: the lack of
-                <strong>Cross-Scenario Generalization Ability</strong> and <strong>Fine-Grained Severity Grading Capability</strong>.
-              </p>
-
-              <p>
-                In real-world workflows, production lines and sensing environments frequently change. Conventional models often suffer from catastrophic performance degradation
-                when transferred from one production line to another unseen domain. When transferred to another unseen scenario, existing benchmarks predominantly focus on binary decisions,
-                lacking fine-grained assessment ability of the severity, which is crucial for better optimizing industrial pipelines.
-              </p>
-
-              <p><strong>IDA 2026</strong> establishes two distinct competition tracks:</p>
-
-              <ul>
-                <li>
-                  <strong>Track 1: Cross-Scenario Defect Detection</strong>.
-                  This track focuses on the <strong>adaptability</strong> of vision models. Participants must develop models that can accurately detect, localize,
+              <div class="box track-card has-background-white-ter">
+                <div class="has-text-centered track-icon">
+                  <i class="fas fa-search-location fa-3x"></i>
+                </div>
+                <h4 class="title is-5 has-text-centered">Track 1: Cross-Scenario Defect Detection</h4>
+                <p class="is-size-6">
+                  This track focuses on the <strong>adaptability</strong> of vision models. 
+                  Participants must develop models that can accurately detect, localize,
                   and classify defects across different, unseen production lines and varying imaging conditions.
-                  <ul>
-                    <li><strong>Goal:</strong> Maximize detection, classification, and localization performance in unseen domains while minimizing false alarms.</li>
-                    <li><strong>Key Challenge:</strong> Domain adaptation and Zero-Shot/Few-Shot generalization.</li>
-                  </ul>
-                </li>
-
-                <li class="mt-3">
-                  <strong>Track 2: Fine-Grained Severity Grading</strong>.
+                </p>
+                
+                <ul class="is-size-6 mt-2">
+                  <li><strong>Goal:</strong> Maximize detection, classification, and localization performance in unseen domains while minimizing false alarms.</li>
+                  <li><strong>Key Challenge:</strong> Domain adaptation and Zero-Shot/Few-Shot generalization.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="box track-card has-background-white-ter" style="border-top-color: #ff3860;">
+                <div class="has-text-centered track-icon" style="color: #ff3860;">
+                  <i class="fas fa-tachometer-alt fa-3x"></i>
+                </div>
+                <h4 class="title is-5 has-text-centered">Track 2: Fine-Grained Severity Grading</h4>
+                <p class="is-size-6">
                   This track focuses on the <strong>analytical depth</strong> of vision models. Moving beyond simple detection, participants must analyze detected defects to identify their
                   specific mechanism and assign an industry-standard severity level
                   (<strong><em>Acceptable, Marginal NG (Not Good), NG, or Gross NG</em></strong>).
-                  <ul>
-                    <li><strong>Goal:</strong> Accurately categorize defect types and grade severity based on visual evidence.</li>
-                    <li><strong>Key Challenge:</strong> Fine-Grained Classification and Ordinal Regression.</li>
-                  </ul>
-                </li>
-              </ul>
-
-              <p>
-                The goal is to advance AI systems from mere “defect finders” (Track 1) to intelligent “risk assessors” (Track 2) for electronics assembly.
-              </p>
+                </p>
+                <ul class="is-size-6 mt-2">
+                  <li><strong>Goal:</strong> Accurately categorize defect types and grade severity based on visual evidence.</li>
+                  <li><strong>Key Challenge:</strong> Fine-Grained Classification and Ordinal Regression.</li>
+                </ul>
+              </div>
             </div>
           </div>
-        </section>
 
-        <!-- Evaluation Criteria (formulas) -->
-        <section class="section pt-0" id="evaluation-criteria">
-          <h2 class="title is-3">Evaluation Criteria</h2>
-          <div class="box">
-            <div class="content">
-              <p>
-                We define separate scoring metrics for each track. Crucially, both tracks require strong capabilities in Defect Localization and Classification,
-                but with different weighting priorities.
-              </p>
-
-              <h3 class="title is-4">Track 1: Cross-Scenario Defect Detection</h3>
-              <p>
-                The ranking for Track 1 is determined by the <strong>Detection Score</strong> \(S_{Track1}\).
-                This score emphasizes the model’s ability to find and recognize defects in new domains while controlling false alarms.
-              </p>
-              <p>
-                $$ S_{Track1} = 0.3 \\times S_{loc} + 0.3 \\times S_{cls} + 0.4 \\times S_{screen} $$
-              </p>
-              <ul>
-                <li><strong>Localization</strong> (\(S_{loc}\)): Mean Intersection over Union (mIoU).</li>
-                <li><strong>Classification</strong> (\(S_{cls}\)): Macro-F1 Score for defect type identification.</li>
-                <li><strong>Screening Efficiency</strong> (\(S_{screen}\)): composite of Image-Level Recall and Specificity to penalize false alarms in unseen domains.</li>
-              </ul>
-
-              <h3 class="title is-4 mt-5">Track 2: Fine-Grained Severity Grading</h3>
-              <p>
-                The ranking for Track 2 is determined by the <strong>Risk Assessment Score</strong> \(S_{Track2}\).
-                While severity grading is the primary goal, accurate localization and classification are prerequisites for valid reasoning.
-              </p>
-              <p>
-                $$ S_{Track2} = 0.2 \\times S_{loc} + 0.2 \\times S_{cls} + 0.6 \\times S_{grade} $$
-              </p>
-              <ul>
-                <li><strong>Severity Grading</strong> (\(S_{grade}\)): <strong>Quadratic Weighted Kappa (QWK)</strong>.</li>
-                <li><strong>Localization</strong> (\(S_{loc}\)) &amp; <strong>Classification</strong> (\(S_{cls}\)): ensures the severity grade is assigned to the correct defect instance and type.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Dataset (placeholder) -->
-        <section class="section pt-0" id="dataset">
-          <h2 class="title is-3">Dataset</h2>
-          <div class="notification is-warning is-light">
-            <strong>Placeholder:</strong> Dataset details will be released soon (download links, license, format specs, annotation schema, and train/dev/test splits).
-          </div>
-          <div class="box">
-            <div class="content">
-              <h3 class="title is-5">Dataset Structure (Preview)</h3>
-              <ul>
-                <li><strong>Development Set (Shared):</strong> images from multiple source domains with full annotations (Bounding Boxes + Defect Types + Severity Labels).</li>
-                <li><strong>Track 1 Test Set (Unseen Domains):</strong> images from <strong>new</strong> production lines or components not seen (Zero-Shot/Few-Shot) in the training set.</li>
-                <li><strong>Track 2 Test Set (Complex Cases):</strong> images containing challenging defects with subtle visual differences between severity levels.</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Evaluation (placeholder) -->
-        <section class="section pt-0" id="evaluation">
-          <h2 class="title is-3">Evaluation</h2>
-          <div class="notification is-warning is-light">
-            <strong>Placeholder:</strong> Detailed evaluation protocol (metrics definitions, thresholds, matching rules, and scoring script) will be provided soon.
-          </div>
-          <div class="box">
-            <div class="content">
-              <p>
-                For now, please refer to <a href="#evaluation-criteria">Evaluation Criteria</a> for the scoring formulas and metric descriptions.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Submission (placeholder, but keep your format + timeline) -->
-        <section class="section pt-0" id="submission">
-          <h2 class="title is-3">Submission</h2>
-          <div class="notification is-warning is-light">
-            <strong>Placeholder:</strong> Submission portal/link and code packaging requirements will be announced soon.
+          <div class="content">
+            <p>
+              The goal is to advance AI systems from mere “defect finders” (Track 1) to intelligent “risk assessors” (Track 2) for electronics assembly.
+            </p>
           </div>
 
-          <div class="box">
-            <div class="content">
-              <h3 class="title is-4">Submission Format</h3>
-              <p>Participants can choose to compete in one or both tracks.</p>
+        </div>
+
+        <div class="box" id="dataset">
+          <h2 class="title is-3 section-header">Dataset</h2>
+          <div class="content">
+
+            <p class="is-size-6 has-text-grey">
+              Dataset details will be released soon.
+            </p>
+            
+            
+          </div>
+        </div>
+
+
+        <div class="box" id="evaluation-criteria">
+          <h2 class="title is-3 section-header">Evaluation Criteria</h2>
+          <div class="content">
+
+            <p>
+              We define separate scoring metrics for each track. Crucially, both tracks require strong capabilities in Defect Localization and Classification,
+              but with different weighting priorities.
+            </p>
+            
+            <h4 class="title is-5">Track 1: Cross-Scenario Defect Detection</h4>
+            <p>
+              The ranking for Track 1 is determined by the <strong>Detection Score</strong> \(S_{Track1}\).
+              This score emphasizes the model's ability to find and recognize defects in new domains while controlling false alarms.
+            </p>
+            </p>
+              $$ S_{Track1} = 0.3 \times S_{loc} + 0.3 \times S_{cls} + 0.4 \times S_{screen} $$
+            </p>
+
+            <ul>
+              <li><strong>Localization</strong> (\(S_{loc}\)): Mean Intersection over Union (mIoU).</li>
+              <li><strong>Classification</strong> (\(S_{cls}\)): Macro-F1 Score for defect type identification.</li>
+              <li><strong>Screening Efficiency</strong> (\(S_{screen}\)): composite of Image-Level Recall and Specificity to penalize false alarms in unseen domains.</li>
+            </ul>
+
+            <h4 class="title is-5 mt-5">Track 2: Fine-Grained Severity Grading</h4>
+            <p>
+              The ranking for Track 2 is determined by the <strong>Risk Assessment Score</strong> \(S_{Track2}\).
+              While severity grading is the primary goal, accurate localization and classification are prerequisites for valid reasoning.
+            </p>
+            </p>
+              $$ S_{Track2} = 0.2 \times S_{loc} + 0.2 \times S_{cls} + 0.6 \times S_{grade} $$
+            </p>
+            <ul>
+              <li><strong>Severity Grading</strong> (\(S_{grade}\)): <strong>Quadratic Weighted Kappa (QWK)</strong>.</li>
+              <li><strong>Localization</strong> (\(S_{loc}\)) &amp; <strong>Classification</strong> (\(S_{cls}\)): ensures the severity grade is assigned to the correct defect instance and type.</li>
+            </ul>
+          </div>
+        </div>
+
+
+
+        <div class="box" id="submission-format">
+          <h2 class="title is-3 section-header">Submission Format</h2>
+          <div class="content">
+
+            <p>Participants can choose to compete in one or both tracks.</p>
               <ul>
                 <li><strong>Track 1 Submission:</strong> JSON with <code>image_id</code>, <code>bbox</code>, <code>defect_type</code>, <code>confidence</code>.</li>
                 <li><strong>Track 2 Submission:</strong> JSON with <code>image_id</code>, <code>bbox</code>, <code>defect_type</code>, <code>severity_level</code>.</li>
               </ul>
 
-              <h3 class="title is-4 mt-5">Timeline</h3>
-              <table class="table is-striped is-fullwidth">
-                <thead>
-                  <tr><th>Date</th><th>Milestone</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td><strong>2026.03.01</strong></td><td>Challenge registration opens and release of the training dataset.</td></tr>
-                  <tr><td><strong>2026.04.01</strong></td><td>Test Set Release (Track 1 &amp; Track 2).</td></tr>
-                  <tr><td><strong>2026.04.06</strong></td><td>Challenge closes (Final code submission).</td></tr>
-                  <tr><td><strong>2026.04.20</strong></td><td>Grand challenge paper submission deadline.</td></tr>
-                  <tr><td><strong>2026.04.25</strong></td><td>Paper acceptance notification.</td></tr>
-                  <tr><td><strong>2026.07.05</strong></td><td>Winner Announcement &amp; Award.</td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- Awards -->
-        <section class="section pt-0" id="awards">
-          <h2 class="title is-3">Awards</h2>
-          <div class="box">
-            <div class="content">
-              <p>
-                A total prize pool of <strong>$9,600 USD</strong> will be awarded across two tracks (Track 1 and Track 2), with identical prize distributions:
-              </p>
-              <ul>
-                <li><strong>Champion:</strong> $3,000 &nbsp;&nbsp; <strong>Runner-up:</strong> $1,000 &nbsp;&nbsp; <strong>Third Place:</strong> $800</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Organizers (name + email only, per your request) -->
-        <section class="section pt-0" id="organizers">
-          <h2 class="title is-3">Organizers</h2>
-          <div class="box">
-            <div class="content">
-              <table class="table is-fullwidth is-striped">
-                <thead>
-                  <tr><th>Name</th><th>Email</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Wei Sun (Lead Organizer)</td><td><a href="mailto:wsun@cee.ecnu.edu.cn">wsun@cee.ecnu.edu.cn</a></td></tr>
-                  <tr><td>Weixia Zhang</td><td><a href="mailto:zwx8981@sjtu.edu.cn">zwx8981@sjtu.edu.cn</a></td></tr>
-                  <tr><td>Linhan Cao</td><td><a href="mailto:caolinhan@sjtu.edu.cn">caolinhan@sjtu.edu.cn</a></td></tr>
-                  <tr><td>Xiongkuo Min</td><td><a href="mailto:minxiongkuo@sjtu.edu.cn">minxiongkuo@sjtu.edu.cn</a></td></tr>
-                  <tr><td>Xiaoping Zhang</td><td><a href="mailto:xpzhang@ieee.org">xpzhang@ieee.org</a></td></tr>
-                  <tr><td>Patrick Le Callet</td><td><a href="mailto:patrick.lecallet@univ-nantes.fr">patrick.lecallet@univ-nantes.fr</a></td></tr>
-                  <tr><td>Guangtao Zhai</td><td><a href="mailto:zhaiguangtao@sjtu.edu.cn">zhaiguangtao@sjtu.edu.cn</a></td></tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <!-- RIGHT: Quick links + key info (ICME-like sidebar) -->
-      <div class="column is-4">
-
-        <!-- Quick Links -->
-        <div class="box">
-          <h3 class="title is-5">Quick Links</h3>
-          <div class="content">
-            <ul>
-              <li><a href="#program">Program</a></li>
-              <li><a href="#leaderboard">Leaderboard</a></li>
-              <li><a href="#overview">Overview</a></li>
-              <li><a href="#evaluation-criteria">Evaluation Criteria</a></li>
-              <li><a href="#dataset">Dataset</a></li>
-              <li><a href="#evaluation">Evaluation</a></li>
-              <li><a href="#submission">Submission</a></li>
-              <li><a href="#awards">Awards</a></li>
-              <li><a href="#organizers">Organizers</a></li>
-            </ul>
           </div>
         </div>
+        
 
-        <!-- Dates card -->
-        <div class="box">
-          <h3 class="title is-5">Important Dates</h3>
+        <div class="box" id="timeline">
+          <h2 class="title is-3 section-header">Timeline</h2>
           <div class="content">
-            <ul>
-              <p><em>Coming soon.</em></p>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Tracks card -->
-        <div class="box">
-          <h3 class="title is-5">Tracks</h3>
-          <div class="content">
-            <p class="mb-2"><strong>Track 1:</strong> Cross-Scenario Defect Detection</p>
-            <p><strong>Track 2:</strong> Fine-Grained Severity Grading</p>
-          </div>
-        </div>
-
-        <!-- Optional: Contact card -->
-        <div class="box">
-          <h3 class="title is-5">Contact</h3>
-          <div class="content">
-            <p>
-              <!-- TODO: pick one main contact email if you like -->
-              Email: <a href="mailto:wsun@cee.ecnu.edu.cn">wsun@cee.ecnu.edu.cn</a>
+            <p class="is-size-6 has-text-grey">
+              The detailed timeline will be announced soon.
             </p>
           </div>
         </div>
 
+        <div class="box awards-box" id="awards">
+          <h2 class="title is-3 section-header"><i class="fas fa-award mr-2"></i>Awards</h2>
+          <div class="content">
+            <p>A total prize pool of <strong>$9,600 USD</strong> will be awarded across two tracks.</p>
+            <div class="columns is-mobile has-text-centered mt-4">
+              <div class="column">
+                <span class="icon is-large has-text-warning"><i class="fas fa-trophy fa-2x"></i></span>
+                <p class="heading mt-2">Champion</p>
+                <p class="price-tag">$3,000</p>
+              </div>
+              <div class="column">
+                <span class="icon is-large has-text-grey-light"><i class="fas fa-medal fa-2x"></i></span>
+                <p class="heading mt-2">Runner-up</p>
+                <p class="price-tag">$1,000</p>
+              </div>
+              <div class="column">
+                <span class="icon is-large has-text-brown"><i class="fas fa-medal fa-2x"></i></span>
+                <p class="heading mt-2">Third Place</p>
+                <p class="price-tag">$800</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="box" id="organizers">
+          <h2 class="title is-3 section-header">Organizers</h2>
+          <div class="content">
+            <ul>
+              <li><strong>Wei Sun</strong>, wsun@cee.ecnu.edu.cn</li>
+              <li><strong>Weixia Zhang</strong>, zwx8981@sjtu.edu.cn</li>
+              <li><strong>Linhan Cao</strong>, caolinhan@sjtu.edu.cn</li>
+              <li><strong>Xiongkuo Min</strong>, minxiongkuo@sjtu.edu.cn</li>
+              <li><strong>Xiaoping Zhang</strong>, xpzhang@ieee.org</li>
+              <li><strong>Patrick Le Callet</strong>, patrick.lecallet@univ-nantes.fr</li>
+              <li><strong>Guangtao Zhai</strong>, zhaiguangtao@sjtu.edu.cn</li>
+            </ul>
+          </div>
+        </div>
+
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="footer">
+<footer class="footer has-background-dark has-text-white">
   <div class="content has-text-centered">
-    <p class="is-size-7 has-text-grey">
-      © IDA 2026. Built on the nerfies.github.io template.
+    <p>
+      <strong>IDA 2026 Grand Challenge</strong><br>
+      International Conference on Multimedia and Expo (ICME)
+    </p>
+    <p class="is-size-7 has-text-grey-light">
+      Designed for High-Precision Manufacturing Analysis.
     </p>
   </div>
 </footer>
