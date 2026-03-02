@@ -271,7 +271,7 @@
               The ranking for Track 1 is determined by the <strong>Detection Score</strong> \(S_{Track1}\).
               This score emphasizes the model's ability to find and recognize defects in new domains while controlling false alarms.
             </p>
-            </p>
+            <p>
               $$ S_{Track1} = 0.3 \times S_{loc} + 0.3 \times S_{cls} + 0.4 \times S_{screen} $$
             </p>
 
@@ -286,7 +286,7 @@
               The ranking for Track 2 is determined by the <strong>Risk Assessment Score</strong> \(S_{Track2}\).
               While severity grading is the primary goal, accurate localization and classification are prerequisites for valid reasoning.
             </p>
-            </p>
+            <p>
               $$ S_{Track2} = 0.2 \times S_{loc} + 0.2 \times S_{cls} + 0.6 \times S_{grade} $$
             </p>
             <ul>
