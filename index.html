@@ -149,9 +149,13 @@
                 <span class="icon"><i class="fas fa-database"></i></span>
                 <span>Dataset</span>
               </a>
-              <a class="button is-white is-rounded has-text-dark" href="#evaluation-criteria">
-                <span class="icon"><i class="fas fa-chart-bar"></i></span>
-                <span>Evaluation</span>
+              <a class="button is-white is-rounded has-text-dark" 
+                href="https://docs.google.com/forms/d/e/1FAIpQLScoHzPooNyvrqdrxe21xorvnKbLy9CsXfxx0mzdsXumUBo0Fw/viewform" 
+                target="_blank">
+                <span class="icon">
+                  <i class="fas fa-user-plus"></i>
+                </span>
+                <span>Register</span>
               </a>
               <a class="button is-white is-rounded has-text-dark" href="#submission-format">
                 <span class="icon"><i class="fas fa-upload"></i></span>
@@ -242,12 +246,13 @@
         <div class="box" id="dataset">
           <h2 class="title is-3 section-header">Dataset</h2>
           <div class="content">
-
-            <p class="is-size-6 has-text-grey">
-              Dataset details will be released soon.
-            </p>
-            
-            
+        
+            <ul>
+              <li>
+                The training dataset will be sent to the contact email address provided in the registration form.
+              </li>
+            </ul>
+        
           </div>
         </div>
 
@@ -291,7 +296,40 @@
           </div>
         </div>
 
-
+        <div class="box" id="Baseline">
+          <h2 class="title is-3 section-header">Baseline</h2>
+          <div class="content">
+        
+            <p>
+              We provide 
+              <a href="https://github.com/IDAGrandChallenge/idachallenge-baseline" target="_blank" style="text-decoration: underline;">
+                official baseline codes
+              </a> 
+              to help participants get started quickly.
+            </p>
+        
+            <ul>
+              <li>
+                <strong>Track 1 Baseline:</strong>
+                <a href="https://github.com/IDAGrandChallenge/idachallenge-baseline/blob/main/Track1-CrossScenarioDefectDetection/Cross-Scenario%20Defect%20Detection%20Baseline.md" target="_blank" style="text-decoration: underline;">
+                  Cross-Scenario Defect Detection Baseline
+                </a>
+              </li>
+        
+              <li>
+                <strong>Track 2 Baseline:</strong>
+                <a href="https://github.com/IDAGrandChallenge/idachallenge-baseline/blob/main/Track2-FineGrainedSeverityGrading/Fine-Grained%20Severity%20Grading%20Baseline.md" target="_blank" style="text-decoration: underline;">
+                  Fine-Grained Severity Grading Baseline
+                </a>
+              </li>
+            </ul>
+        
+            <p>
+              The baseline is intended for reference only. Participants are encouraged to develop their own innovative solutions.
+            </p>
+        
+          </div>
+        </div>
 
         <div class="box" id="submission-format">
           <h2 class="title is-3 section-header">Submission Format</h2>
@@ -317,7 +355,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td><strong>Mar 01</strong></td><td>Registration Opens & Training Data Release</td></tr>
+              <tr>
+                <td><strong>Mar 01</strong></td>
+                <td>
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScoHzPooNyvrqdrxe21xorvnKbLy9CsXfxx0mzdsXumUBo0Fw/viewform"
+                     target="_blank"
+                     style="text-decoration: underline;">
+                    Registration Opens
+                  </a>
+                  & Training Data Release
+                </td>
+              </tr>
               <tr><td><strong>Apr 01</strong></td><td>Test Set Release (Track 1 & 2)</td></tr>
               <tr><td><strong>Apr 06</strong></td><td>Challenge Closes (Code Submission)</td></tr>
               <tr><td><strong>Apr 20</strong></td><td>Paper Submission</td></tr>
