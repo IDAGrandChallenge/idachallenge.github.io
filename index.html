@@ -334,13 +334,49 @@
         <div class="box" id="submission-format">
           <h2 class="title is-3 section-header">Submission Format</h2>
           <div class="content">
-
+        
             <p>Participants can choose to compete in one or both tracks.</p>
-              <ul>
-                <li><strong>Track 1 Submission:</strong> JSON with <code>image_id</code>, <code>bbox</code>, <code>defect_type</code>, <code>confidence</code>.</li>
-                <li><strong>Track 2 Submission:</strong> JSON with <code>image_id</code>, <code>bbox</code>, <code>defect_type</code>, <code>severity_level</code>.</li>
-              </ul>
-
+        
+            <ul>
+              <li>
+                <strong>Track 1 Submission:</strong>
+                <a href="Track1_submission_format.json" download><u>Download Example</u></a>
+              </li>
+        
+              <li>
+                <strong>Track 2 Submission:</strong>
+                <a href="Track2_submission_format.json" download><u>Download Example</u></a>
+              </li>
+            </ul>
+        
+            <p>The submitted JSON file should follow the structure shown in the example files. The fields are defined as follows:</p>
+        
+            <ul>
+              <li><strong>results</strong>: total results of all test images.</li>
+        
+              <li><strong>file_name</strong>: image name.</li>
+        
+              <li><strong>width</strong>: width of the image.</li>
+        
+              <li><strong>height</strong>: height of the image.</li>
+        
+              <li><strong>defect_info</strong>: all defect information for one test image.</li>
+        
+              <li><strong>category_id</strong>: category ID of one detected defect.</li>
+        
+              <li><strong>severity</strong>: severity level of one detected defect.</li>
+        
+              <li><strong>bbox</strong>: bounding box of one defect, formatted as  
+                <code>[x_min, y_min, x_max, y_max]</code>.  
+                All coordinates should be normalized to the range <strong>[0, 1]</strong>.
+              </li>
+        
+              <li><strong>segmentation</strong>: segmentation points of one defect, formatted as  
+                <code>[x1, y1, x2, y2, ..., xn, yn]</code>.  
+                All coordinates should be normalized to the range <strong>[0, 1]</strong>.
+              </li>
+            </ul>
+        
           </div>
         </div>
         
