@@ -106,6 +106,43 @@
       color: #4a4a4a;
     }
 
+    .leaderboard-table th,
+    .leaderboard-table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+    .leaderboard-table th:nth-child(2),
+    .leaderboard-table td:nth-child(2) {
+      text-align: left;
+    }
+    .leaderboard-table .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2rem;
+      height: 2rem;
+      border-radius: 999px;
+      background: #f5f7fa;
+      color: #203a43;
+      font-weight: 700;
+    }
+    .leaderboard-table tr:first-child .rank-badge {
+      background: #ffdd57;
+      color: #5c4100;
+    }
+    .leaderboard-table tr:nth-child(2) .rank-badge {
+      background: #e8edf3;
+      color: #34495e;
+    }
+    .leaderboard-table tr:nth-child(3) .rank-badge {
+      background: #f3dfcf;
+      color: #7a4b20;
+    }
+    .score-strong {
+      font-weight: 700;
+      color: #203a43;
+    }
+
   </style>
 
   <script>
@@ -432,6 +469,69 @@
                 <p class="price-tag">$800</p>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div class="box" id="leaderboard">
+          <h2 class="title is-3 section-header">
+            <i class="fas fa-trophy mr-2"></i>Final Leaderboard
+          </h2>
+
+          <h4 class="title is-5 mt-4">Track 1: Cross-Scenario Defect Detection</h4>
+          <div class="table-container">
+            <table class="table is-fullwidth is-striped is-hoverable leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team</th>
+                  <th>\(S_{loc}\)</th>
+                  <th>\(S_{cls}\)</th>
+                  <th>\(S_{screen}\)</th>
+                  <th>\(S_{Track1}\)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="rank-badge">1</span></td><td><strong>FS-Seekers</strong></td><td>0.618</td><td>0.746</td><td>0.992</td><td class="score-strong">0.806</td></tr>
+                <tr><td><span class="rank-badge">2</span></td><td><strong>KZRR_sdu</strong></td><td>0.628</td><td>0.665</td><td>1.000</td><td class="score-strong">0.788</td></tr>
+                <tr><td><span class="rank-badge">3</span></td><td><strong>trios</strong></td><td>0.467</td><td>0.590</td><td>1.000</td><td class="score-strong">0.717</td></tr>
+                <tr><td><span class="rank-badge">4</span></td><td><strong>MVP</strong></td><td>0.628</td><td>0.587</td><td>0.842</td><td class="score-strong">0.701</td></tr>
+                <tr><td><span class="rank-badge">5</span></td><td><strong>APC_TDC</strong></td><td>0.561</td><td>0.638</td><td>0.827</td><td class="score-strong">0.690</td></tr>
+                <tr><td><span class="rank-badge">6</span></td><td><strong>accle</strong></td><td>0.628</td><td>0.555</td><td>0.555</td><td class="score-strong">0.577</td></tr>
+                <tr><td><span class="rank-badge">6</span></td><td><strong>LDK</strong></td><td>0.489</td><td>0.465</td><td>0.696</td><td class="score-strong">0.564</td></tr>
+                <tr><td><span class="rank-badge">6</span></td><td><strong>AIoTCTOCD</strong></td><td>0.724</td><td>0.399</td><td>0.441</td><td class="score-strong">0.513</td></tr>
+                <tr><td><span class="rank-badge">7</span></td><td><strong>zeyu</strong></td><td>0.693</td><td>0.417</td><td>0.442</td><td class="score-strong">0.510</td></tr>
+                <tr><td><span class="rank-badge">8</span></td><td><strong>jcjing</strong></td><td>0.532</td><td>0.460</td><td>0.524</td><td class="score-strong">0.507</td></tr>
+                <tr><td><span class="rank-badge">8</span></td><td><strong>EVA</strong></td><td>0.691</td><td>0.395</td><td>0.453</td><td class="score-strong">0.507</td></tr>
+                <tr><td><span class="rank-badge">9</span></td><td><strong>DefectsharpEye</strong></td><td>0.617</td><td>0.396</td><td>0.459</td><td class="score-strong">0.488</td></tr>
+                <tr><td><span class="rank-badge">10</span></td><td><strong>limzero</strong></td><td>0.772</td><td>0.247</td><td>0.255</td><td class="score-strong">0.408</td></tr>
+                <tr><td><span class="rank-badge">11</span></td><td><strong>MISSL</strong></td><td>0.335</td><td>0.308</td><td>0.500</td><td class="score-strong">0.393</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h4 class="title is-5 mt-6">Track 2: Fine-Grained Severity Grading</h4>
+          <div class="table-container">
+            <table class="table is-fullwidth is-striped is-hoverable leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Team</th>
+                  <th>\(S_{loc}\)</th>
+                  <th>\(S_{cls}\)</th>
+                  <th>\(S_{grade}\)</th>
+                  <th>\(S_{Track2}\)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="rank-badge">1</span></td><td><strong>MVP</strong></td><td>0.662</td><td>0.673</td><td>0.907</td><td class="score-strong">0.811</td></tr>
+                <tr><td><span class="rank-badge">2</span></td><td><strong>EVA</strong></td><td>0.689</td><td>0.667</td><td>0.885</td><td class="score-strong">0.802</td></tr>
+                <tr><td><span class="rank-badge">3</span></td><td><strong>Hebut AI</strong></td><td>0.652</td><td>0.658</td><td>0.891</td><td class="score-strong">0.797</td></tr>
+                <tr><td><span class="rank-badge">4</span></td><td><strong>accle</strong></td><td>0.684</td><td>0.675</td><td>0.873</td><td class="score-strong">0.796</td></tr>
+                <tr><td><span class="rank-badge">5</span></td><td><strong>jcjing</strong></td><td>0.684</td><td>0.674</td><td>0.872</td><td class="score-strong">0.795</td></tr>
+                <tr><td><span class="rank-badge">6</span></td><td><strong>limzero</strong></td><td>0.634</td><td>0.563</td><td>0.831</td><td class="score-strong">0.738</td></tr>
+                <tr><td><span class="rank-badge">7</span></td><td><strong>APC_TDC</strong></td><td>0.546</td><td>0.666</td><td>0.790</td><td class="score-strong">0.716</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
